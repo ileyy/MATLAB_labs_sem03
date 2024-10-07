@@ -52,7 +52,7 @@ function [x, ok] = sem_03_kramer(A, b)
     detA = det(A);
     
     try
-        for i = 1:n
+        for i = 1 : n
             Ai = A;
             Ai(:, i) = b;
             x(i) = det(Ai) / detA;
@@ -69,22 +69,22 @@ function [x, ok] = sem_03_gauss(A, b)
     x = zeros(n, 1);
     aug = [A, b];
     
-    for i = 1:n
-        if aug(i,i) == 0
+    for i = 1 : n
+        if aug(i, i) == 0
             ok = false;
             x = zeros(n, 1);
             return;
         end
         
-        for j = i+1:n
-            factor = aug(j,i) / aug(i,i);
-            aug(j,:) = aug(j,:) - factor * aug(i,:);
+        for j = i + 1 : n
+            factor = aug(j, i) / aug(i, i);
+            aug(j, :) = aug(j, :) - factor * aug(i, :);
         end
     end
     
-    x(n) = aug(n,end) / aug(n,n);
-    for i = n-1:-1:1
-        x(i) = (aug(i,end) - aug(i,i+1:n) * x(i+1:n)) / aug(i,i);
+    x(n) = aug(n, end) / aug(n, n);
+    for i = n - 1 : -1 : 1
+        x(i) = (aug(i, end) - aug(i , i + 1 : n) * x(i + 1 :n)) / aug(i ,i);
     end
     
     ok = true;
@@ -94,19 +94,19 @@ function [x, ok] = sem_03_gauss_jordan(A, b)
     n = length(b);
     aug = [A, b];
     
-    for i = 1:n
-        if aug(i,i) == 0
+    for i = 1 : n
+        if aug(i, i) == 0
             ok = false;
             x = zeros(n, 1);
             return;
         end
         
-        aug(i,:) = aug(i,:) / aug(i,i);
+        aug(i, :) = aug(i, :) / aug(i, i);
         
-        for j = 1:n
+        for j = 1 : n
             if j ~= i
-                factor = aug(j,i);
-                aug(j,:) = aug(j,:) - factor * aug(i,:);
+                factor = aug(j, i);
+                aug(j, :) = aug(j, :) - factor * aug(i, :);
             end
         end
     end
