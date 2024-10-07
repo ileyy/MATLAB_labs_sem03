@@ -4,8 +4,9 @@ close all
 
 %1.3
 X = randn(5);
-fprintf("Исходная матрица:")
-A = X * X.'
+fprintf("Исходная матрица A:\n")
+A = X * X.';
+disp(A)
 
 %2.2
 fprintf("Встроенный метод LU разложения")
@@ -25,12 +26,12 @@ RES = L2 * L2.'
 
 %4.2
 fprintf("Встроенный метод QR разложения")
-[Q, R] = qr(A)
+[Q1, R1] = qr(A)
 fprintf("Реализованный метод QR разложения")
-name = 'hausholder'
-[Q, R] = sem_02_qr(A, name)
+name = 'givens'
+[Q2, R2] = sem_02_qr(A, name)
 A
-RES = Q * R
+RES = Q2 * R2
 
 %2.1
 function [L, U] = sem_02_lu(A)

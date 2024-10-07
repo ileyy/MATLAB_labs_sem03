@@ -19,7 +19,7 @@ x2 = sem_03_kramer(A, b);
 x3 = sem_03_gauss(A, b);
 x4 = sem_03_gauss_jordan(A, b);
 
-fprintf('Size of matrix A: %d x %d\n', size(A));
+fprintf('Size of matrix A: %d x %d\n\n', size(A));
 fprintf('Size of matrix b: %d x %d\n\n', size(b));
 disp(table(A, b, x, x1, x2, x3, x4));
 
