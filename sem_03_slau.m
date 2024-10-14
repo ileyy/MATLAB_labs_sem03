@@ -67,27 +67,29 @@ end
 function [x, ok] = sem_03_gauss(A, b)
     n = length(b);
     x = zeros(n, 1);
-    aug = [A, b];
-    
+    ok = true;
+
     for i = 1 : n
-        if aug(i, i) == 0
+        if A(i, i) == 0
             ok = false;
-            x = zeros(n, 1);
             return;
         end
-        
+    end
+
+    for i = 1 : n
         for j = i + 1 : n
-            factor = aug(j, i) / aug(i, i);
-            aug(j, :) = aug(j, :) - factor * aug(i, :);
+            k = A(j, i) / A(i, i);
+            A(j, :) = A(j, :) - (A(i, :) * k);
+            b(j) = b(j) - k * b(i);
         end
     end
-    
-    x(n) = aug(n, end) / aug(n, n);
-    for i = n - 1 : -1 : 1
-        x(i) = (aug(i, end) - aug(i , i + 1 : n) * x(i + 1 :n)) / aug(i ,i);
+    for i = n : -1 : 1
+        x(i) = b(i);
+        for k = i + 1 : n
+            x(i) = x(i) - A(i, k) * x(k);
+        end
+        x(i) = x(i) / A(i, i);
     end
-    
-    ok = true;
 end
 
 function [x, ok] = sem_03_gauss_jordan(A, b)
